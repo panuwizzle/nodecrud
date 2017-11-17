@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const app = express();
+require('dotenv').config();
 
 // Constants
 const PORT = 8080;
@@ -17,9 +18,9 @@ app.use(express.static('public'));
 // settings
 app.set('view engine', 'ejs');
 
-// DB
+// DB DB_DSN = mlab.com connection string
 var db;
-MongoClient.connect('mongodb://<user>:<password>@<mlab.com-db-endpoint>', (err, database) => {
+MongoClient.connect(process.env.DB_DSN, (err, database) => {
     if (err) return console.log(err)
     db = database;
 });
